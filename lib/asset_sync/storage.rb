@@ -64,7 +64,7 @@ module AssetSync
           manifest = Sprockets::Manifest.new(ActionView::Base.assets_manifest.environment, ActionView::Base.assets_manifest.dir)
           files  = manifest.assets.values.map { |f| File.join(self.config.assets_prefix, f) }
           if self.config.webpacker
-            files += Dir[File.join(Webpacker::Configuration.fetch(:public_output_path), '/**/**')]
+            files += Dir[Webpacker.config.public_output_path.join('**', '**')]
           end
 
           return files
@@ -89,7 +89,7 @@ module AssetSync
         to_load = self.config.assets_prefix.present? ? "#{self.config.assets_prefix}/**/**" : '**/**'
         files = Dir[to_load]
         if self.config.webpacker
-          files += Dir[File.join(Webpacker::Configuration.fetch(:public_output_path), '/**/**')]
+          files += Dir[Webpacker.config.public_output_path.join('**',' **')]
         end
 
         files
